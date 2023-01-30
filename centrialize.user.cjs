@@ -1,6 +1,5 @@
 // ==UserScript==
 // @name         Search Align Fucker (simple impl)
-// @name:zh-CN   居中啊!他娘的搜索引擎!
 // @version      0.0.0.1
 // @author       Heizi黑字
 // @description  a simple implementation of moving search result to page center and that's google and bing.
@@ -11,6 +10,8 @@
 // @run-at       document-end
 // @supportURL   https://github.com/ElisaMin/justify-search-page-to-center
 // @homepageURL  https://github.com/ElisaMin/justify-search-page-to-center
+// @name:zh-CN            居中啊!他娘的搜索引擎!
+// @description:zh-CN     简单加点padding把搜索结果移到中间。
 // ==/UserScript==
 (()=>{
     let css = (dom,style,value) => $(dom).style[style] = value;
