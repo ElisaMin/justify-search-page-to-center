@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Search Align Fucker (simple impl)
-// @version      0.0.0.2
+// @version      0.0.0.3
 // @author       Heizi黑字
 // @description  a simple implementation of moving search result to page center and that's google and bing.
 // @license      GPL-3.0 License
@@ -20,10 +20,21 @@
 // ==/UserScript==
 (()=>{
     if (!$) var $ = (elm)=> document.querySelector(elm);
-    let css = (dom,style,value) => $(dom).style[style] = value;
+    let css = (dom,style,value) => {
+        let e = $(dom);
+        if (!!e) e.style[style] = value;
+        return !!e;
+    };
     let pl = (dom,paddingLeft) => css(dom,"padding-left",paddingLeft);
     let rem = (v)=>v+"rem";
     let paddingLeft = 43;
-    pl("#b_header",rem(paddingLeft));
-    pl("#b_content",rem(paddingLeft+10.5));
+    if (pl("#b_header",rem(paddingLeft)))
+        pl("#b_content",rem(paddingLeft+10.5));
+    else {
+        paddingLeft-=13;
+        paddingLeft=rem(paddingLeft);
+        ["hdtb-msb","appbar","rcnt","tsf"].forEach(element => {
+            pl("#"+element,paddingLeft);
+        });
+    }
 })();
