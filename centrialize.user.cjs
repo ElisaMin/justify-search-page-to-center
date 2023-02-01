@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Search Align Fucker (simple impl)
-// @version      0.0.0.4
+// @version      0.0.1.1
 // @author       Heizi黑字
 // @description  a simple implementation of moving search result to page center and that's google and bing.
 // @license      GPL-3.0 License
@@ -201,30 +201,40 @@
 // @match        https://www.google.co.zm/search*
 // @match        https://www.google.co.zw/search*
 // @match        https://www.google.cat/search*
-// @run-at       document-end
+// @run-at       document-start
 // @supportURL   https://github.com/ElisaMin/justify-search-page-to-center
 // @homepageURL  https://github.com/ElisaMin/justify-search-page-to-center
 // @name:zh-CN            居中啊!他娘的搜索引擎!
 // @description:zh-CN     简单加点padding把搜索结果移到中间。
 // @namespace https://greasyfork.org/users/1018732
 // ==/UserScript==
-(()=>{
-    if (!$) var $ = (elm)=> document.querySelector(elm);
-    let css = (dom,style,value) => {
-        let e = $(dom);
-        if (!!e) e.style[style] = value;
-        return !!e;
-    };
-    let pl = (dom,paddingLeft) => css(dom,"padding-left",paddingLeft);
-    let rem = (v)=>v+"rem";
-    let paddingLeft = 43;
-    if (pl("#b_header",rem(paddingLeft)))
-        pl("#b_content",rem(paddingLeft+10.5));
-    else {
-        paddingLeft-=13;
-        paddingLeft=rem(paddingLeft);
-        ["hdtb-msb","appbar","rcnt","tsf"].forEach(element => {
-            pl("#"+element,paddingLeft);
-        });
+(async ()=>{
+    let getSize = (key,defVal)=> GM.getValue(key+"_search_page_shift_size",(!!defVal)?defVal:"45rem");
+    let currentPage,css = "";
+    currentPage = location.hostname.indexOf("google")>0 // is Google
+    currentPage = {
+        key:currentPage?"google":"bing",
+        size:await (currentPage?getSize("google","30rem"):getSize("bing","43rem")),
+        cssSelector:currentPage
+                    ?"#hdtb-msb,#appbar,#rcnt,#tsf"
+                    :"#b_content {margin-left:160px;}#b_header,#b_content",
     }
+    css += "#resizerbar {"
+    css +=     "position: fixed;left: 43rem;width: 1px;background: aliceblue;height: 100vh;"
+    css += "}"
+    css += currentPage.cssSelector+ " {"
+    css +=     "padding-left:"+currentPage.size+";"
+    css += "}"
+    // css = "<style>"+css+"</style>"
+    // document.body.innerHTML = "<span id=resizerbar></span>"+document.body.innerHTML+css
+    if(!$) var $ = (slt) => document.querySelector(slt)
+    let elm;
+    elm = document.createElement("style");
+    elm.innerText = css
+    $("head").appendChild(elm)
+    elm = document.createElement("span");
+    elm.id = "resizerbar"
+    let body = await $("body")
+    body.appendChild(elm)
+
 })();
