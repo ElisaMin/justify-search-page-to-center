@@ -1,6 +1,9 @@
 # justify-search-page-to-center
 fuck you ! google and bing !
 
+# codespace
+this simple script is write on codespace
+
 # links:
 [Github Repo](https://github.com/ElisaMin/justify-search-page-to-center)
 
