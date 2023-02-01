@@ -208,33 +208,29 @@
 // @description:zh-CN     简单加点padding把搜索结果移到中间。
 // @namespace https://greasyfork.org/users/1018732
 // ==/UserScript==
-(async ()=>{
-    let getSize = (key,defVal)=> GM.getValue(key+"_search_page_shift_size",(!!defVal)?defVal:"45rem");
-    let currentPage,css = "";
-    currentPage = location.hostname.indexOf("google")>0 // is Google
-    currentPage = {
-        key:currentPage?"google":"bing",
-        size:await (currentPage?getSize("google","30rem"):getSize("bing","43rem")),
-        cssSelector:currentPage
-                    ?"#hdtb-msb,#appbar,#rcnt,#tsf"
-                    :"#b_content {margin-left:160px;}#b_header,#b_content",
-    }
-    css += "#resizerbar {"
-    css +=     "position: fixed;left: 43rem;width: 1px;background: aliceblue;height: 100vh;"
-    css += "}"
-    css += currentPage.cssSelector+ " {"
-    css +=     "padding-left:"+currentPage.size+";"
-    css += "}"
-    // css = "<style>"+css+"</style>"
-    // document.body.innerHTML = "<span id=resizerbar></span>"+document.body.innerHTML+css
-    if(!$) var $ = (slt) => document.querySelector(slt)
-    let elm;
-    elm = document.createElement("style");
-    elm.innerText = css
-    $("head").appendChild(elm)
-    elm = document.createElement("span");
-    elm.id = "resizerbar"
-    let body = await $("body")
-    body.appendChild(elm)
 
-})();
+let getSize = (key,defVal)=> GM.getValue(key+"_search_page_shift_size",(!!defVal)?defVal:"45rem");
+let currentPage,css = "";
+currentPage = location.hostname.indexOf("google")>0 // is Google
+currentPage = {
+    key:currentPage?"google":"bing",
+    size:await (currentPage?getSize("google","30rem"):getSize("bing","43rem")),
+    cssSelector:currentPage
+                ?"#hdtb-msb,#appbar,#rcnt,#tsf"
+                :"#b_content {margin-left:160px;}#b_header,#b_content",
+}
+css += "#resizerbar {"
+css += "position: fixed;left: 43rem;width: 1px;background: aliceblue;height: 100vh;"
+css += "}"
+css += currentPage.cssSelector+ " {"
+css +=     "padding-left:"+currentPage.size+";"
+css += "}"
+if(!$) var $ = (slt) => document.querySelector(slt)
+let elm;
+elm = document.createElement("style");
+elm.innerText = css
+$("head").appendChild(elm)
+elm = document.createElement("span");
+elm.id = "resizerbar"
+let body = await $("body")
+body.appendChild(elm)
