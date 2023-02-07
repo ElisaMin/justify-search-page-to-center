@@ -220,24 +220,21 @@ currentPage = {
                 :"#b_content {margin-left:160px;}#b_header,#b_content",
 }
 css += "#resizerbar {"
-css += "position: fixed;left: 43rem;width: 1px;background: aliceblue;height: 100vh;"
+css +=     "position: fixed;left: 43rem;"
+css +=     "width: 1px;height: 100vh;background: aliceblue;"
+css +=     "cursor: col-resize;z-index: 125;"
 css += "}"
 css += currentPage.cssSelector+ " {"
 css +=     "padding-left:"+currentPage.size+";"
 css += "}"
-if(!$) var $ = (slt) => document.querySelector(slt)
+if(!$) var $ = (slt) => document.querySelector(slt);
 let elm
 elm = document.createElement("style")
 elm.innerText = css
 $("head").appendChild(elm)
-elm = document.createElement("span")
-elm.id = "resizerbar"
-let body = async () => {
-    let body = null
-    while (!body) {
-        body = await $("body")
-    }
-    return body
+window.onload = ()=>{
+    elm = document.createElement("span")
+    elm.id = "resizerbar"
+    let body = document.body
+    body.insertBefore(elm,body.firstChild)
 }
-body = await body()
-body.appendChild(elm)
