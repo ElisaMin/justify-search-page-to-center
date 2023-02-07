@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Search Align Fucker (simple impl)
-// @version      0.0.1.1
+// @version      0.0.2.1-dev
 // @author       Heizi黑字
 // @description  a simple implementation of moving search result to page center and that's google and bing.
 // @license      GPL-3.0 License
@@ -209,8 +209,8 @@
 // @namespace https://greasyfork.org/users/1018732
 // ==/UserScript==
 
-let getSize = (key,defVal)=> GM.getValue(key+"_search_page_shift_size",(!!defVal)?defVal:"45rem");
-let currentPage,css = "";
+let getSize = (key,defVal)=> GM.getValue(key+"_search_page_shift_size",(!!defVal)?defVal:"45rem")
+let currentPage,css = ""
 currentPage = location.hostname.indexOf("google")>0 // is Google
 currentPage = {
     key:currentPage?"google":"bing",
@@ -226,11 +226,18 @@ css += currentPage.cssSelector+ " {"
 css +=     "padding-left:"+currentPage.size+";"
 css += "}"
 if(!$) var $ = (slt) => document.querySelector(slt)
-let elm;
-elm = document.createElement("style");
+let elm
+elm = document.createElement("style")
 elm.innerText = css
 $("head").appendChild(elm)
-elm = document.createElement("span");
+elm = document.createElement("span")
 elm.id = "resizerbar"
-let body = await $("body")
+let body = async () => {
+    let body = null
+    while (!body) {
+        body = await $("body")
+    }
+    return body
+}
+body = await body()
 body.appendChild(elm)
