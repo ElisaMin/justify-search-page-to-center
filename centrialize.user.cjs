@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Search Align Fucker (simple impl)
-// @version      0.0.2.1
+// @version      0.0.2.2
 // @author       Heizi黑字
 // @description  a simple implementation of moving search result to page center and that's google and bing.
 // @license      GPL-3.0 License
@@ -232,7 +232,7 @@ currentPage = {
     size:await (currentPage?getSize("google","30rem"):getSize("bing","43rem")),
     cssSelector:currentPage
                 ?"#hdtb-msb,#appbar,#rcnt,#tsf"
-                :"#b_header,#b_content,",
+                :"#b_header,#b_content,#b_sydConvCont",
 }
 if(!isNaN(currentPage.size)) {
     currentPage.size += "px"

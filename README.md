@@ -1,5 +1,7 @@
 # justify-search-page-to-center
 fuck you ! google and bing !
+> support new bing chat
+
 
 # codespace
 this simple script is write on codespace
