@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Search Align Fucker (simple impl)
-// @version      0.0.2.1-dev
+// @version      0.0.2.1
 // @author       Heizi黑字
 // @description  a simple implementation of moving search result to page center and that's google and bing.
 // @license      GPL-3.0 License
@@ -209,32 +209,61 @@
 // @namespace https://greasyfork.org/users/1018732
 // ==/UserScript==
 
+let css = (selector) => {
+    let css = "";
+    css += "#resizerbar:hover {"
+    css +=     "width:3px"
+    css += "}"
+    css += "#resizerbar {"
+    css +=     "position: fixed;left: var(--content-shift-size);"
+    css +=     "width: 1px;height: 100vh;background: aliceblue;"
+    css +=     "cursor: col-resize;z-index: 125;"
+    css += "}"
+    css += selector+ " {"
+    css +=     "padding-left:var(--content-shift-size);"
+    css += "}"
+    return css 
+}
 let getSize = (key,defVal)=> GM.getValue(key+"_search_page_shift_size",(!!defVal)?defVal:"45rem")
-let currentPage,css = ""
+let currentPage = ""
 currentPage = location.hostname.indexOf("google")>0 // is Google
 currentPage = {
     key:currentPage?"google":"bing",
     size:await (currentPage?getSize("google","30rem"):getSize("bing","43rem")),
     cssSelector:currentPage
                 ?"#hdtb-msb,#appbar,#rcnt,#tsf"
-                :"#b_content {margin-left:160px;}#b_header,#b_content",
+                :"#b_header,#b_content,",
 }
-css += "#resizerbar {"
-css +=     "position: fixed;left: 43rem;"
-css +=     "width: 1px;height: 100vh;background: aliceblue;"
-css +=     "cursor: col-resize;z-index: 125;"
-css += "}"
-css += currentPage.cssSelector+ " {"
-css +=     "padding-left:"+currentPage.size+";"
-css += "}"
-if(!$) var $ = (slt) => document.querySelector(slt);
+if(!isNaN(currentPage.size)) {
+    currentPage.size += "px"
+}
+css="body{--content-shift-size:"+currentPage.size+"}"+css(currentPage.cssSelector)
+if (currentPage.key="bing") {
+    css += "#b_content {margin-left:160px;}"
+}
+if(!$) var $ = (slt) => document.querySelector(slt)
 let elm
 elm = document.createElement("style")
 elm.innerText = css
 $("head").appendChild(elm)
 window.onload = ()=>{
-    elm = document.createElement("span")
+    const elm = document.createElement("span")
     elm.id = "resizerbar"
+
+    elm.onmouseup=(event) => {
+        elm.isDragging = false;
+    }
+    elm.onmousedown=(event) => {
+        elm.isDragging = true;
+    }
     let body = document.body
+    body.onmousemove=(event) => {
+        if(elm.isDragging) {
+            let shift = event.pageX
+            $("#resizerbar").style.left = shift+"px"
+            GM.setValue(currentPage.key+"_search_page_shift_size",shift)
+            document.body.style.setProperty("--content-shift-size",shift+"px")
+        }
+    }
     body.insertBefore(elm,body.firstChild)
 }
