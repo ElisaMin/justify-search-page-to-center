@@ -2,6 +2,9 @@
 fuck you ! google and bing !
 > support new bing chat
 
+# what this script can do ？
+Center the Bing or Google search results page.
+> 把Bing或者Google搜出来的东西居中了。
 
 # codespace
 this simple script is write on codespace

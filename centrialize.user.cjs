@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Search Align Fucker (simple impl)
+// @name         Search Align Fucker (simple impl) - Search Results Centering Script
 // @version      0.0.2.2
 // @author       Heizi黑字
-// @description  a simple implementation of moving search result to page center and that's google and bing.
+// @description  A simple implementation of moving search result to page center or anywhere for both Google and Bing. support new bing chat also .
 // @license      GPL-3.0 License
 // @grant        GM.setValue
 // @grant        GM.getValue
