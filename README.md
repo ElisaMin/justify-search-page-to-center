@@ -1,3 +1,4 @@
+![material-icon-width-wide](logo.png)
 # justify-search-page-to-center
 fuck you ! google and bing !
 > support new bing chat
