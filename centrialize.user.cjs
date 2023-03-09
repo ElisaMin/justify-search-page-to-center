@@ -6,6 +6,7 @@
 // @license      GPL-3.0 License
 // @grant        GM.setValue
 // @grant        GM.getValue
+// @icon64       https://cdn.jsdelivr.net/gh/ElisaMin/justify-search-page-to-center/logo.png
 // @match        https://www.bing.com/search*
 // @match        https://www.google.com/search*
 // @match        https://cn.bing.com/search*
