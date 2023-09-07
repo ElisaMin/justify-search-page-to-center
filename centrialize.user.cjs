@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Search Align Fucker (simple impl) - Search Results Centering Script
-// @version      0.0.2.2
+// @version      0.0.3
 // @author       Heizi黑字
-// @description  A simple implementation of moving search result to page center or anywhere for both Google and Bing. support new bing chat also .
+// @description  A simple implementation of moving search result to page center or anywhere for both Google and Bing. support new bing chat also . (the resize bar is hiddenn on left)
 // @license      GPL-3.0 License
 // @grant        GM.setValue
 // @grant        GM.getValue
@@ -206,18 +206,18 @@
 // @supportURL   https://github.com/ElisaMin/justify-search-page-to-center
 // @homepageURL  https://github.com/ElisaMin/justify-search-page-to-center
 // @name:zh-CN            居中啊!他娘的搜索引擎!
-// @description:zh-CN     简单加点padding把搜索结果移到中间。
+// @description:zh-CN     简单加点padding把搜索结果移到中间。(可调节, 移动鼠标到边界处可见)
 // @namespace https://greasyfork.org/users/1018732
 // ==/UserScript==
 
 let css = (selector) => {
     let css = "";
     css += "#resizerbar:hover {"
-    css +=     "width:3px"
+    css +=     "box-shadow: 0 0 1px;"
     css += "}"
     css += "#resizerbar {"
     css +=     "position: fixed;left: var(--content-shift-size);"
-    css +=     "width: 1px;height: 100vh;background: aliceblue;"
+    css +=     "width: 10px;height: 100vh;"
     css +=     "cursor: col-resize;z-index: 125;"
     css += "}"
     css += selector+ " {"
@@ -232,7 +232,7 @@ currentPage = {
     key:currentPage?"google":"bing",
     size:await (currentPage?getSize("google","30rem"):getSize("bing","43rem")),
     cssSelector:currentPage
-                ?"#hdtb-msb,#appbar,#rcnt,#tsf"
+                ?"#hdtb-msb,#result-stats,#rcnt,#tsf,.aAbqZ"
                 :"#b_header,#b_content,#b_sydConvCont",
 }
 if(!isNaN(currentPage.size)) {
