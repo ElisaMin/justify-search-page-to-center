@@ -7,6 +7,8 @@ fuck you ! google and bing !
 Center the Bing or Google search result pages (on utral wide screens like 21:9 ).
 > 让Bing或Google的搜索结果能够水平移动左宽距，也至于适配21:9或者更宽的屏幕。默认是21:9最舒服的居中距离。
 
+## Rezizebar
+you can shake your mouse on left padding of the page to find it
 # codespace
 this simple script is write on codespace
 
