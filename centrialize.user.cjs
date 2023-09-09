@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Search Align Fucker (simple impl) - Search Results Centering Script
-// @version      0.0.3
+// @version      0.0.3.1
 // @author       Heizi黑字
 // @description  A simple implementation of moving search result to page center or anywhere for both Google and Bing. support new bing chat also . (the resize bar is hiddenn on left)
 // @license      GPL-3.0 License
@@ -233,7 +233,7 @@ currentPage = {
     size:await (currentPage?getSize("google","30rem"):getSize("bing","43rem")),
     cssSelector:currentPage
                 ?"#hdtb-msb,#result-stats,#rcnt,#tsf,.aAbqZ"
-                :"#b_header,#b_content,#b_sydConvCont",
+                :"#resizerbar {border-left: 1px solid #ddd;}#b_header,#b_content,#b_sydConvCont",
 }
 if(!isNaN(currentPage.size)) {
     currentPage.size += "px"
