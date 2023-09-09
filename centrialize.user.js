@@ -3,7 +3,7 @@
 // @version      0.0.3.1
 // @author       Heizi黑字
 // @description  A simple implementation of moving search result to page center or anywhere for both Google and Bing. support new bing chat also . (the resize bar is hiddenn on left)
-// @license      GPL-3.0-or-later;
+// @license      GPL-3.0-or-later; http://www.gnu.org/licenses/gpl-3.0.txt
 // @grant        GM.setValue
 // @grant        GM.getValue
 // @icon64       https://cdn.jsdelivr.net/gh/ElisaMin/justify-search-page-to-center/logo.png
